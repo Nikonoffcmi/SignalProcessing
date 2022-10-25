@@ -23,31 +23,6 @@ namespace SignalProcessing
             handlers = new HandlerComposite();
         }
 
-        //private void AddHandlerOneToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    var ho = new HandlerOneForm(handlers.GetNames());
-        //    if (ho.ShowDialog() == DialogResult.OK)
-        //    { 
-        //        handlers.AddHandlerAtTheEnd(ho.handlerOne);
-        //        if (ho.nameafter != "")
-        //            handlers.AddHandlerByName(ho.handlerOne, ho.nameafter);
-        //        else
-        //            handlers.AddHandlerAtTheEnd(ho.handlerOne);
-        //    }
-        //}
-
-        //private void AddHandlerTwoToolStripMenuItem1_Click(object sender, EventArgs e)
-        //{
-        //    var ht = new HandlerTwoForm(handlers.GetNames());
-        //    if (ht.ShowDialog() == DialogResult.OK)
-        //    {
-        //        if (ht.nameafter != "")
-        //            handlers.AddHandlerByName(ht.handlerTwo, ht.nameafter);
-        //        else
-        //            handlers.AddHandlerAtTheEnd(ht.handlerTwo);
-        //    }
-        //}
-
         private void HandlerOneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var CatalogHandlerOne = new Catalog<List<HandlerOne>, HandlerOne>(handlers.GethandlerOne(), handlers);

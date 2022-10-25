@@ -16,6 +16,7 @@ namespace SignalProcessing
         where T2 : class
     {
         public HandlerComposite handlers;
+
         public Catalog(T1 set, HandlerComposite handlers)
         {
             InitializeComponent();
@@ -51,40 +52,26 @@ namespace SignalProcessing
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            var id = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+            var id = (int)dataGridView1.SelectedRows[0].Cells[0].RowIndex;
 
             if (typeof(T2) == typeof(HandlerOne))
             {
                 var ho = handlers.GethandlerOne().ElementAt(id - 1);
                 if (ho != null)
                 {
-                    var hoForm = new HandlerOneForm(ho, handlers.GetNames());
-                    if (hoForm.ShowDialog() == DialogResult.OK)
-                    {
-                        ho = hoForm.handlerOne;
-                        if (hoForm.nameafter != "")
-                            handlers.AddHandlerByName(ho.handlerOne, ho.nameafter);
-                        else
-                            handlers.AddHandlerAtTheEnd(ho.handlerOne);
-                        dataGridView1.DataSource = handlers.GethandlerOne();
-
-                    }
+                    handlers.RemoveHandlerByName(ho, ho.Name);
+                    dataGridView1.DataSource = handlers.GethandlerOne();
                 }
             }
             else if (typeof(T2) == typeof(HandlerTwo))
             {
-                var seller = set.Find(id) as Seller;
-                if (seller != null)
+                var ht = handlers.GethandlerTwo().ElementAt(id - 1);
+                if (ht != null)
                 {
-                    var form = new SellerForm(seller);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        seller = form.Seller;
-                        db.SaveChanges();
-                        dataGridView.Update();
-                    }
+                    handlers.RemoveHandlerByName(ht, ht.Name);
+                    dataGridView1.DataSource = handlers.GethandlerTwo();
                 }
             }
         }
