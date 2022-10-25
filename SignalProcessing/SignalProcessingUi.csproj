@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalog.Designer.cs">
+      <DependentUpon>Catalog.cs</DependentUpon>
+    </Compile>
     <Compile Include="HandlerOneForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Catalog.resx">
+      <DependentUpon>Catalog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HandlerOneForm.resx">
       <DependentUpon>HandlerOneForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -15,6 +15,9 @@ namespace SignalProcessing
     public partial class HandlerTwoForm : Form
     {
         public HandlerTwo handlerTwo;
+
+        public string nameafter;
+
         public HandlerTwoForm(List<string> names)
         {
             InitializeComponent();
@@ -25,14 +28,10 @@ namespace SignalProcessing
         private void button3_Click(object sender, EventArgs e)
         {
             var name = textBox4.Text;
-            var average = int.Parse(textBox5.Text);
+            var average = Convert.ToInt32(numericUpDown1.Value);
+            nameafter = comboBox1.Text;
 
             handlerTwo = new HandlerTwo(name, average);
-            //var nameafter = textBox6.Text;
-            //if (nameafter != "")
-            //    handlerComposite.AddHandlerByName(new HandlerTwo(name, average), nameafter);
-            //else
-            //    handlerComposite.AddHandlerAtTheEnd(new HandlerTwo(name, average));
             Close();
         }
     }
