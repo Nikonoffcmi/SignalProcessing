@@ -26,30 +26,49 @@ namespace SignalProcessing
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (typeof(T2) == typeof(HandlerOne))
-            {
-                var ho = new HandlerOneForm(handlers.GetNames());
-                if (ho.ShowDialog() == DialogResult.OK)
+            try 
+            { 
+                if (typeof(T2) == typeof(HandlerOne))
                 {
-                    if (ho.nameafter != "")
-                        handlers.AddHandlerByName(ho.handlerOne, ho.nameafter);
-                    else
-                        handlers.AddHandlerAtTheEnd(ho.handlerOne);
-                    dataGridView1.DataSource = handlers.GethandlerOne();
+                    var ho = new HandlerOneForm(handlers.GetNames());
+                    if (ho.ShowDialog() == DialogResult.OK)
+                    {
+                        if (ho.nameafter != "")
+                            handlers.AddHandlerByName(ho.handlerOne, ho.nameafter);
+                        else
+                            handlers.AddHandlerAtTheEnd(ho.handlerOne);
+                        dataGridView1.DataSource = handlers.GetHandlerOne();
+                    }
+                }
+                else if (typeof(T2) == typeof(HandlerTwo))
+                {
+                    var ht = new HandlerTwoForm(handlers.GetNames());
+                    if (ht.ShowDialog() == DialogResult.OK)
+                    {
+                        if (ht.nameafter != "")
+                            handlers.AddHandlerByName(ht.handlerTwo, ht.nameafter);
+                        else
+                            handlers.AddHandlerAtTheEnd(ht.handlerTwo);
+                        dataGridView1.DataSource = handlers.GetHandlerTwo();
+                    }
                 }
             }
-            else if (typeof(T2) == typeof(HandlerTwo))
+            catch (FormatException ex)
             {
-                var ht = new HandlerTwoForm(handlers.GetNames());
-                if (ht.ShowDialog() == DialogResult.OK)
-                {
-                    if (ht.nameafter != "")
-                        handlers.AddHandlerByName(ht.handlerTwo, ht.nameafter);
-                    else
-                        handlers.AddHandlerAtTheEnd(ht.handlerTwo);
-                    dataGridView1.DataSource = handlers.GethandlerTwo();
-                }
+                MessageBox.Show($"Format error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
             }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"Format error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+            }
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -58,20 +77,20 @@ namespace SignalProcessing
 
             if (typeof(T2) == typeof(HandlerOne))
             {
-                var ho = handlers.GethandlerOne().ElementAt(id - 1);
+                var ho = handlers.GetHandlerOne().ElementAt(id - 1);
                 if (ho != null)
                 {
-                    handlers.RemoveHandlerByName(ho, ho.Name);
-                    dataGridView1.DataSource = handlers.GethandlerOne();
+                    handlers.RemoveHandlerByName(ho.Name);
+                    dataGridView1.DataSource = handlers.GetHandlerOne();
                 }
             }
             else if (typeof(T2) == typeof(HandlerTwo))
             {
-                var ht = handlers.GethandlerTwo().ElementAt(id - 1);
+                var ht = handlers.GetHandlerTwo().ElementAt(id - 1);
                 if (ht != null)
                 {
-                    handlers.RemoveHandlerByName(ht, ht.Name);
-                    dataGridView1.DataSource = handlers.GethandlerTwo();
+                    handlers.RemoveHandlerByName(ht.Name);
+                    dataGridView1.DataSource = handlers.GetHandlerTwo();
                 }
             }
         }

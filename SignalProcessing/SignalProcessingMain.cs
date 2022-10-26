@@ -28,19 +28,21 @@ namespace SignalProcessing
             InitializeComponent();
             handlers = new HandlerComposite();
             label3.Text = "";
+            label2.Text = "";
+            filePath = "SignalProcessing.txt";
         }
 
         private void HandlerOneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var CatalogHandlerOne = new Catalog<List<HandlerOne>, HandlerOne>(handlers.GethandlerOne(), handlers);
-            if (CatalogHandlerOne.ShowDialog() == DialogResult.OK)
+            var CatalogHandlerOne = new Catalog<List<HandlerOne>, HandlerOne>(handlers.GetHandlerOne(), handlers);
+            if (CatalogHandlerOne.ShowDialog() == DialogResult.Cancel)
                 UpdateList();
         }
 
         private void HandlerTwoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var CatalogHandlerTwo = new Catalog<List<HandlerTwo>, HandlerTwo>(handlers.GethandlerTwo(), handlers);
-            if (CatalogHandlerTwo.ShowDialog() == DialogResult.OK)
+            var CatalogHandlerTwo = new Catalog<List<HandlerTwo>, HandlerTwo>(handlers.GetHandlerTwo(), handlers);
+            if (CatalogHandlerTwo.ShowDialog() == DialogResult.Cancel)
                 UpdateList();
         }
 
@@ -52,7 +54,7 @@ namespace SignalProcessing
                 listBox1.Items.Add(i++.ToString() + ". " + name);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void FileRead_Click(object sender, EventArgs e)
         {
             var file = new OpenFileDialog()
             {
@@ -78,18 +80,44 @@ namespace SignalProcessing
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void ProcessSignal_Click(object sender, EventArgs e)
         {
-            var numbers = textBox1.Text.Split(new char[] { ' ' }).Select(n => double.Parse(n)).ToList<double>();
-            handlers.RunProcessing(numbers);
+            try
+            {
+                var numbers = textBox1.Text
+                .Split(new char[] { ' ' })
+                .Where(n => n != "")
+                .Select(n => double.Parse(n))
+                .ToList<double>();
 
-            label3.Text = "";
-            foreach (var number in numbers)
-                label3.Text += number.ToString() + " ";
+                handlers.RunProcessing(numbers);
 
-            var sw = new StreamWriter(filePath);
-            sw.WriteLine(label3.Text.Remove(label3.Text.Length - 1));
-            sw.Close();
+                label3.Text = "";
+                foreach (var number in numbers)
+                    label3.Text += number.ToString() + " ";
+
+                
+                var sw = new StreamWriter(filePath);
+                sw.WriteLine(label3.Text.Remove(label3.Text.Length - 1));
+                sw.Close();
+                label2.Text = "Выходные значения сигнала:";
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show($"Format error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"Format error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+            }
+
         }
     }
 }
