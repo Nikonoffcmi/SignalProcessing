@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace SignalProcessing
 {
@@ -22,6 +23,10 @@ namespace SignalProcessing
             InitializeComponent();
             dataGridView1.DataSource = set;
             this.handlers = handlers;
+            if (typeof(T2) == typeof(HandlerOne))
+                label1.Text = "Обработчики типа 1";
+            else
+                label1.Text = "Обработчики типа 2";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,14 +58,9 @@ namespace SignalProcessing
                     }
                 }
             }
-            catch (FormatException ex)
-            {
-                MessageBox.Show($"Format error.\n\nError message: {ex.Message}\n\n" +
-                    $"Details:\n\n{ex.StackTrace}");
-            }
             catch (ArgumentException ex)
             {
-                MessageBox.Show($"Format error.\n\nError message: {ex.Message}\n\n" +
+                MessageBox.Show($"Argument error.\n\nError message: {ex.Message}\n\n" +
                     $"Details:\n\n{ex.StackTrace}");
             }
             catch (Exception ex)
@@ -73,25 +73,37 @@ namespace SignalProcessing
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var id = (int)dataGridView1.SelectedRows[0].Cells[0].RowIndex;
 
-            if (typeof(T2) == typeof(HandlerOne))
+            try
             {
-                var ho = handlers.GetHandlerOne().ElementAt(id - 1);
-                if (ho != null)
+                var id = (int)dataGridView1.SelectedRows[0].Cells[0].RowIndex;
+
+                var handlerName = handlers.GetNames().ElementAt(id);
+                if (handlerName != null)
                 {
-                    handlers.RemoveHandlerByName(ho.Name);
-                    dataGridView1.DataSource = handlers.GetHandlerOne();
+                    handlers.RemoveHandlerByName(handlerName);
+                    if (typeof(T2) == typeof(HandlerOne))
+                        dataGridView1.DataSource = handlers.GetHandlerOne();
+                    else
+                        dataGridView1.DataSource = handlers.GetHandlerTwo();                    
                 }
             }
-            else if (typeof(T2) == typeof(HandlerTwo))
+            catch (ArgumentOutOfRangeException ex)
             {
-                var ht = handlers.GetHandlerTwo().ElementAt(id - 1);
-                if (ht != null)
-                {
-                    handlers.RemoveHandlerByName(ht.Name);
-                    dataGridView1.DataSource = handlers.GetHandlerTwo();
-                }
+                MessageBox.Show($"Argument Out Of Range error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"Argument error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
             }
         }
     }

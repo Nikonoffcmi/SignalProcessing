@@ -27,14 +27,36 @@ namespace SignalProcessing
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var name = textBox1.Text;
-            var min = int.Parse(textBox2.Text);
-            var max = int.Parse(textBox3.Text);
-            nameafter = comboBox1.Text;
+            try
+            {
+                var name = textBox1.Text;
+                var min = Convert.ToInt32(numericUpDown1.Value);
+                var max = Convert.ToInt32(numericUpDown2.Value);
+                nameafter = comboBox1.Text;
 
-            handlerOne = new HandlerOne(name, min, max);
-            Close();
+                handlerOne = new HandlerOne(name, min, max);
+                Close();
 
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"Argument error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                DialogResult = DialogResult.None;
+                
+            }
+            catch (OverflowException ex)
+            {
+                MessageBox.Show($"Overflow error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                DialogResult = DialogResult.None;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                DialogResult = DialogResult.None;
+            }        
         }
     }
 }

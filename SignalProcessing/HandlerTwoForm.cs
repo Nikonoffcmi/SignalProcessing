@@ -27,12 +27,40 @@ namespace SignalProcessing
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var name = textBox4.Text;
-            var average = Convert.ToInt32(numericUpDown1.Value);
-            nameafter = comboBox1.Text;
+            try
+            {
+                var name = textBox4.Text;
+                var average = Convert.ToInt32(numericUpDown1.Value);
+                nameafter = comboBox1.Text;
 
-            handlerTwo = new HandlerTwo(name, average);
-            Close();
+                handlerTwo = new HandlerTwo(name, average);
+                Close();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show($"Argument Out Of Range error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                DialogResult = DialogResult.Cancel;
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"Argument error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                DialogResult = DialogResult.None;
+
+            }
+            catch (OverflowException ex)
+            {
+                MessageBox.Show($"Overflow error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                DialogResult = DialogResult.None;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                DialogResult = DialogResult.None;
+            }            
         }
     }
 }

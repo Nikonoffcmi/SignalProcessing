@@ -36,6 +36,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(13, 40);
+            this.label11.Location = new System.Drawing.Point(13, 57);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(122, 16);
             this.label11.TabIndex = 28;
@@ -66,7 +67,7 @@
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(141, 40);
+            this.textBox4.Location = new System.Drawing.Point(141, 57);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(306, 20);
             this.textBox4.TabIndex = 26;
@@ -75,7 +76,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(14, 105);
+            this.label6.Location = new System.Drawing.Point(14, 118);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(181, 16);
             this.label6.TabIndex = 25;
@@ -97,14 +98,17 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.Location = new System.Drawing.Point(14, 179);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(270, 32);
+            this.label7.Size = new System.Drawing.Size(264, 48);
             this.label7.TabIndex = 35;
-            this.label7.Text = "Имя обработчика, после которого \r\nбудет добавлен новый (необезательно)";
+            this.label7.Text = "Имя обработчика, после которого \r\nбудет добавлен новый, иначе он будет\r\nдобавлен " +
+    "в конец очереди.";
             // 
             // comboBox1
             // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(310, 179);
+            this.comboBox1.Location = new System.Drawing.Point(310, 189);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(137, 21);
             this.comboBox1.TabIndex = 36;
@@ -113,7 +117,8 @@
             // 
             this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(201, 105);
+            this.numericUpDown1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.numericUpDown1.Location = new System.Drawing.Point(201, 118);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             -1486618624,
             232830643,
@@ -133,11 +138,22 @@
             0,
             0});
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(13, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(336, 16);
+            this.label1.TabIndex = 38;
+            this.label1.Text = "Выполняет усреднение по последним N выборкам";
+            // 
             // HandlerTwoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 297);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label7);
@@ -164,5 +180,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label1;
     }
 }
