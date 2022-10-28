@@ -13,17 +13,17 @@ using System.Xml.Linq;
 
 namespace SignalProcessing
 {
-    public partial class Catalog<T1, T2> : Form
-        where T2 : class
+    public partial class Catalog<T> : Form
+        where T : class
     {
         public HandlerComposite handlers;
 
-        public Catalog(T1 set, HandlerComposite handlers)
+        public Catalog(List<T> set, HandlerComposite handlers)
         {
             InitializeComponent();
             dataGridView1.DataSource = set;
             this.handlers = handlers;
-            if (typeof(T2) == typeof(HandlerOne))
+            if (typeof(T) == typeof(HandlerOne))
                 label1.Text = "Обработчики типа 1";
             else
                 label1.Text = "Обработчики типа 2";
@@ -33,7 +33,7 @@ namespace SignalProcessing
         {
             try 
             { 
-                if (typeof(T2) == typeof(HandlerOne))
+                if (typeof(T) == typeof(HandlerOne))
                 {
                     var ho = new HandlerOneForm(handlers.GetNames());
                     if (ho.ShowDialog() == DialogResult.OK)
@@ -45,7 +45,7 @@ namespace SignalProcessing
                         dataGridView1.DataSource = handlers.GetHandlerOne();
                     }
                 }
-                else if (typeof(T2) == typeof(HandlerTwo))
+                else if (typeof(T) == typeof(HandlerTwo))
                 {
                     var ht = new HandlerTwoForm(handlers.GetNames());
                     if (ht.ShowDialog() == DialogResult.OK)
@@ -82,7 +82,7 @@ namespace SignalProcessing
                 if (handlerName != null)
                 {
                     handlers.RemoveHandlerByName(handlerName);
-                    if (typeof(T2) == typeof(HandlerOne))
+                    if (typeof(T) == typeof(HandlerOne))
                         dataGridView1.DataSource = handlers.GetHandlerOne();
                     else
                         dataGridView1.DataSource = handlers.GetHandlerTwo();                    

@@ -34,14 +34,14 @@ namespace SignalProcessing
 
         private void HandlerOneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var CatalogHandlerOne = new Catalog<List<HandlerOne>, HandlerOne>(handlers.GetHandlerOne(), handlers);
+            var CatalogHandlerOne = new Catalog<HandlerOne>(handlers.GetHandlerOne(), handlers);
             if (CatalogHandlerOne.ShowDialog() == DialogResult.Cancel)
                 UpdateList();
         }
 
         private void HandlerTwoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var CatalogHandlerTwo = new Catalog<List<HandlerTwo>, HandlerTwo>(handlers.GetHandlerTwo(), handlers);
+            var CatalogHandlerTwo = new Catalog<HandlerTwo>(handlers.GetHandlerTwo(), handlers);
             if (CatalogHandlerTwo.ShowDialog() == DialogResult.Cancel)
                 UpdateList();
         }

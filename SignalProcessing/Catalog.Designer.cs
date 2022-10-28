@@ -1,6 +1,6 @@
 ﻿namespace SignalProcessing
 {
-    partial class Catalog<T1, T2>
+    partial class Catalog<T>
     {
         /// <summary>
         /// Required designer variable.
